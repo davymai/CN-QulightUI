@@ -67,7 +67,7 @@ simplelootannouncer.lua
 Zhuangdeng.lua
 
 ## 公会页面菜单简化
-GuildRosterButtons.lua
+##GuildRosterButtons.lua
 
 ## 商人页面菜单简化
 MerchantFilterButtons.lua

@@ -70,6 +70,7 @@
 	<Script file="Addons\CooldownFlash.lua"/>
 	<Script file="Addons\Filger\Filger.lua"/>
 	<Script file="Addons\Filger\config.lua"/>
+	<Script file="Addons\GuildRosterButtons.lua"/>
 	<Script file="Addons\Loot.lua"/>
 	<Script file="Addons\LootRoll.lua"/>
 	<Script file="Addons\Mail.lua"/>
