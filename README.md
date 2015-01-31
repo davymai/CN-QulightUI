@@ -14,9 +14,10 @@ QulightUI 界面汉化，基于最新版[QulightUI](http://qulightui.org/)汉化
 ## 插件列表
 
 * QulightUI 核心 - Aurora，Qulight_ConfigUI，QulightUI
-* DBM
+* !BaudErrorFrame - 插件错误显示
 * ChatEmote - 聊天表情
 * CoolLine - 冷却监控
+* DBM - 副本插件
 * FriendListColors - 好友职业颜色
 * FriendsMenuXP - 右键增强
 * GarrisonMissionManager - 要塞追随者
