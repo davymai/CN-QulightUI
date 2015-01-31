@@ -1,0 +1,9 @@
+## Interface: 60000
+## Author: Strawberry
+## Title: Tao
+## Notes: Extra Functionality for Brewmasters
+## Version: 1.1
+## SavedVariables: Tao_Options
+
+localization.lua
+Tao.lua

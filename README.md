@@ -28,6 +28,8 @@ QulightUI 界面汉化，基于最新版[QulightUI](http://qulightui.org/)汉化
 * Skada - 各种统计
 * SpeedyLoad - 快速加载游戏
 * SuccessfulInterruptAnnouncer - 打断通报
+* Tao - 武僧插件
+* Zmini - 各种小插件
 
 ## License
 

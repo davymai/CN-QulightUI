@@ -1,0 +1,73 @@
+## Interface: 60000
+## Title: |cff0088ffZmini|r
+## Title-zhCN: |cff0088ffZmini|r
+## Notes: |cff0088ffZmini迷你包|r
+## Version: 4.0
+
+## 框体移动
+DragEmAll.lua
+
+## 专业面板标签集合
+TradeTabs.lua
+
+## 装备比较
+tekKompare.lua
+HoverTips.lua
+
+## 网格 /align 显示或隐藏
+Align.lua
+
+## 暴雪观察框架修复
+InspectFix.lua
+
+core.lua
+
+## 团队BUFF监视
+PrepCheck.lua
+
+## 任务物品BUG修复
+!QuestItemButtonFix.lua
+
+## 低血量屏幕报警
+NephHealth.lua
+
+Quickie.lua
+
+## 修复大地图BUG
+MapCooldownFix.lua
+
+ncShadow.lua
+
+## 装备上显示耐久度
+Durability.lua
+
+CloudyUnitInfo.lua
+
+##roll.lua
+
+## 任务等级显示
+QuestLevelPatch.lua
+
+## 世界地图锁定
+WorldMapZoom.lua
+
+## 飞行点增强
+WorldFlightMap.lua
+
+## 邮箱增加按钮
+PostmasterGeneral.lua
+
+## 战复次数及倒计时
+infCombatRess.lua
+
+## 按住ctrl摸尸体通报
+simplelootannouncer.lua
+
+## 装等属性提示
+Zhuangdeng.lua
+
+## 公会页面菜单简化
+GuildRosterButtons.lua
+
+## 商人页面菜单简化
+MerchantFilterButtons.lua
