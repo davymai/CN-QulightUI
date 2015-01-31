@@ -1,0 +1,15 @@
+## Interface: 60000
+## Title: |cff0080ffQulightUI|r
+## Title-zhCN: [界面]|cff0080ffQulightUI|r
+## Notes: QulightUI
+## Version: 5.5.5
+## Credits to: Monolit, Shestak, Hanomi, Alza, AlleyKat, Fernir, affli, Nightcracker, Allez, haste, Zork, Tekkub, Tuller, Freebaser, Haleth, drakull, P3lim, Dawn, Tukz, Warrior, Wetxius.
+## Author: Qulight
+## X-oUF: oUF
+## SavedVariables: QulightData
+## SavedVariablesPerCharacter: QulightDataPerChar, UISavedPositions
+## OptionalDeps: Qulight_ConfigUI, DXE, Recount, Omen, Skada, KLE, DBM, TinyDPS
+## X-oUF: oUF_Qulight
+
+
+QulightUI.xml

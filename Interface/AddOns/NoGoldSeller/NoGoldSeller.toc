@@ -1,0 +1,10 @@
+## Interface: 60000
+## Version: 3.2
+## Title: |cff0080ffNGS|r
+## Title-zhCN: |cff0080ffNGS|r 聊天过滤
+## Title-zhTW: |cff0080ffNGS|r 聊天過濾
+## Author: Sonichunter(xingfukaka)
+## Notes: NoGoldSeller:|cff00ff00出售金幣廣告屏蔽插件|r          （|cff3399FFSonicelement|r@地獄吼）
+## Notes-zhCN: NoGoldSeller:|cff00ff00出售金币广告屏蔽插件|r          （|cff3399FFSonicelement|r@TW,地獄吼）
+
+NoGoldSeller.lua

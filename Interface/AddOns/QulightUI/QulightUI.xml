@@ -1,0 +1,89 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Config\variables.lua"/>
+	<Script file="Config\config.lua"/>
+	<Script file="Config\configui.lua"/>
+
+	<Script file="Root\Log.lua"/>
+
+	<Script file="Root\Move.lua"/>
+	<Include file="Root\Libs\oUF\oUF.xml"/>
+	<Include file="Addons\Skins\load_addonskins.xml"/>
+	<Include file="Addons\UF\uf.xml"/>
+	<Include file="Addons\UF\template.xml"/>
+	<Include file="Addons\UF\Raid\load.xml"/>
+
+	<Include file="Root\Libs\oGlow\oGlow.xml"/>
+
+	<Script file="Root\Libs\LibStub.lua"/>
+	<Script file="Root\Libs\LibCooldown.lua"/>
+
+	<Script file="Root\Crit.lua"/>
+
+	<Script file="Root\Func.lua"/>
+	<Script file="Root\Scripts.lua"/>
+	<Script file="Root\Fonts.lua"/>
+	<Script file="Root\Layout.lua"/>
+	<Script file="Root\Tweaks.lua"/>
+	<Script file="Root\Mirror.lua"/>
+
+	<Script file="Addons\Actionbars\Hide.lua"/>
+	<Script file="Addons\Actionbars\Bar1.lua"/>
+	<Script file="Addons\Actionbars\Bar2.lua"/>
+	<Script file="Addons\Actionbars\Bar3.lua"/>
+	<Script file="Addons\Actionbars\Bar4.lua"/>
+	<Script file="Addons\Actionbars\Bar5.lua"/>
+	<Script file="Addons\Actionbars\Bar6.lua"/>
+	<Script file="Addons\Actionbars\Bar7.lua"/>
+	<Script file="Addons\Actionbars\BarPet.lua"/>
+	<Script file="Addons\Actionbars\BarShift.lua"/>
+	<Script file="Addons\Actionbars\BarTotem.lua"/>
+	<Script file="Addons\Actionbars\Buttons.lua"/>
+	<Script file="Addons\Actionbars\Style.lua"/>
+	<Script file="Addons\Actionbars\Others.lua"/>
+	<Script file="Addons\Actionbars\Range.lua"/>
+	<Script file="Addons\Actionbars\Extra.lua"/>
+	<Script file="Addons\Actionbars\Bind.lua"/>
+
+	<Script file="Addons\Infotext\Positions.lua"/>
+	<Script file="Addons\Infotext\Durability.lua"/>
+	<Script file="Addons\Infotext\System.lua"/>
+	<Script file="Addons\Infotext\Friend.lua"/>
+	<Script file="Addons\Infotext\Gold.lua"/>
+	<Script file="Addons\Infotext\Guild.lua"/>
+	<Script file="Addons\Infotext\Bags.lua"/>
+	<Script file="Addons\Infotext\Time.lua"/>
+	<Script file="Addons\Infotext\talent.lua"/>
+	<Script file="Addons\Infotext\haste.lua"/>
+	<Script file="Addons\Infotext\power.lua"/>
+	<Script file="Addons\Infotext\mastery.lua"/>
+	<Script file="Addons\Infotext\crit.lua"/>
+	<Script file="Addons\Infotext\dps.lua"/>
+	<Script file="Addons\Infotext\hps.lua"/>
+
+	--Script file="Addons\AddonManager.lua"--
+	<Script file="Addons\Bags.lua"/>
+	<Script file="Addons\Buffs.lua"/>
+	<Script file="Addons\Chat.lua"/>
+	<Script file="Addons\ChatBar.lua"/>
+	<Script file="Addons\ClassTimer.lua"/>
+	<Script file="Addons\Cooldown.lua"/>
+	<Script file="Addons\CooldownFlash.lua"/>
+	<Script file="Addons\Filger\Filger.lua"/>
+	<Script file="Addons\Filger\config.lua"/>
+	<Script file="Addons\Loot.lua"/>
+	<Script file="Addons\LootRoll.lua"/>
+	<Script file="Addons\Mail.lua"/>
+	<Script file="Addons\MarkBar.lua"/>
+	<Script file="Addons\Minimap.lua"/>
+	<Script file="Addons\Map.lua"/>
+	<Script file="Addons\NamePlates.lua"/>
+	<Script file="Addons\ObjectiveTracker.lua"/>
+	<Script file="Addons\RaidBuffReminder.lua"/>
+	<Script file="Addons\RaidUtility.lua"/>
+	<Script file="Addons\Reminder.lua"/>
+	<Script file="Addons\Tooltip.lua"/>
+	<Script file="Addons\RaidCooldowns.lua"/>
+	<Script file="Addons\Filger.lua"/>
+	<Script file="Addons\Threatbar.lua"/>
+	<Script file="Addons\raidmarker.lua"/>
+</Ui>

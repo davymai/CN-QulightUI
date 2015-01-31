@@ -1,0 +1,10 @@
+﻿## Interface: 60000
+## Title: ChatEmote
+## Title-zhCN: |cff0080ffChatEmote|r 聊天表情
+## Title-zhTW: |cff0080ffChatEmote|r 聊天表情
+## Notes: Display Chat Emotes
+## Notes-zhCN: |cffbc8f8f聊天表情.打开聊天框可见|r
+## Notes-zhTW: |cffbc8f8f聊天表情.打開聊天框可見|r
+## Version: 1.0.1
+
+ChatEmote.lua

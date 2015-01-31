@@ -1,0 +1,14 @@
+------------------------------------------------------------------------
+r28 | cybeloras | 2014-10-14 04:29:55 +0000 (Tue, 14 Oct 2014) | 1 line
+Changed paths:
+   A /tags/2.2.1 (from /trunk:27)
+
+Tagging as 2.2.1
+------------------------------------------------------------------------
+r27 | cybeloras | 2014-10-14 04:27:51 +0000 (Tue, 14 Oct 2014) | 1 line
+Changed paths:
+   M /trunk/SpeedyLoad.lua
+   M /trunk/SpeedyLoad.toc
+
+Version bumps, and added one more event for Warlords of Draenor
+------------------------------------------------------------------------

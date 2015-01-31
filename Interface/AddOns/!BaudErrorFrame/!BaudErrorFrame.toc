@@ -1,0 +1,8 @@
+## Interface: 60000
+## Title: |cff0080ffBaudErrorFrame|r 报错收集
+## Notes: Improved error reporting
+## Author: Baudzilla, wolftankk, Affli@RU-Howling Fjord
+## Version: NDui Mod
+
+BaudErrorFrame.xml
+Reskin.lua

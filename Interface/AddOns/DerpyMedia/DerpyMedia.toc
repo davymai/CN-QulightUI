@@ -1,0 +1,8 @@
+## Interface: 60000
+## Author: AlleyKat
+## Version: Step 22
+## SavedVariablesPerCharacter: DerpyPosVars, DerpyAB, DerpyNav, DerpyXCT, DerpyChat, DerpyMediaVars, DerpyStatsVar_TEMP, DerpyNameplates, DerpyUF, DerpyTweaksVar
+## Title: Derpy Media
+## OptionalDeps: CallbackHandler-1.0, LibSharedMedia-3.0, LibStub, oUF
+
+media.xml

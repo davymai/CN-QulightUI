@@ -1,0 +1,39 @@
+subversion:
+	- nbluewiz via svn r12581: # tweak dbt. kill double update (sort not ready yet)
+	- Omega via svn r12580: Gaze debuff is 15 not 10.
+	- Omega via svn r12579: Add countdown options while at it
+	- Omega via svn r12578: Improve pin down accuracy as well. It too is now dead on.
+	- Omega via svn r12577: Even more aggressive updating during nova. as soon as mark of chaos tank is out of range. need that frame to return to nova distance asap. This should be pretty good now.
+	- Omega via svn r12576: add GetRemaining timer object to simplify a lot of mods. Reduce yell spam in highmaul trash (multiple debuffs same player)
+	- Omega via svn r12575: Fix double warn on brackenspore
+	- Omega via svn r12574: Fix a bug where range frame was badly hiding on transition end when updaterangeframe should be called instead. make replicating nova range frame more aggressively update so we get range updated as soon as tank is out of range Lower checkdistance for rangeframe to prevent mark of chaos from stll being show during replicating nova when tank is safe distance away. Cancel countdowns on non mythic when boss goes up, at least until i finish the timer updates (which is still far from done. it's +3 for any timers that have more than 10 seconds remaining, but still requires a lot more work for timers < 10.
+	- Omega via svn r12573: Revert for now
+	- nbluewiz via svn r12572: # sort bar by remaining time. (made by noring)
+	- nbluewiz via svn r12571: # koKR update.
+	- Omega via svn r12570: add couple more options
+	- Omega via svn r12569: Improve range frame header too.
+	- Omega via svn r12568: Support setting range threshold from drop downs, for up to 5 players, so the feature can be accessed outside of boss mods or script commands.
+	- Omega via svn r12567: #Some margok requests *Add alternate yell behavior for gaze, announce stacks instead of countdown expire. choosable from a dropdown option *Removed redundant spam warning for gaze self. *Range frame will now prioritize replicating nova over nearby branded players (when you are not one of them) *Branded players will now prioritize mark of chaos IF mark of chaos is too close. else will show regular everyone frame with appropriate branded distance. *Added some update calls to detect and switch from that back to branded if you move away from that tank *Changed replicating nova distance from 4 to 5. 4 was accurate but left 0 room for buffer. Many requested 5 instead.
+	- Omega via svn r12566: set mark of chaos to range 36 since people cut it too close
+	- Omega via svn r12565: Better timer defaults for oregorger
+	- Omega via svn r12564: CN update
+	- Omega via svn r12563: Some impressive Darmoc updates. I have enough data now that i'm confident most of these timers can be changed to "next" timers. but i want to see them in action first
+	- Omega via svn r12562: Combine announce and specwarn callbacks so DBM generates better transcirptor logs. These callbacks aren't actually used for anything else so no reason to split them into diff event names.
+	- Omega via svn r12561: Another antispam  pass on foundry.
+	- ultrashining via svn r12560: zhTW update
+	- Omega via svn r12559: Change branded yell to be a little shorter (no player name) and to match BW yell format (BW faking doesn't do any good when the yells don't match, this change actually works both ways to make the users faking either DBM/BW blend in better) CN, KR, TW will need updating to probably to prevent funny messages.
+	- Omega via svn r12558: BWRevision
+	- Omega via svn r12557: Update Gruul
+	- Omega via svn r12556: Oregorger Updates Hansgar fixes (forgot to log this one so can only fix the roar stuff which had mechanic changes since test. (cast time gets shorter, instead of radius increasing) Fix bad global in range frame.
+	- Omega via svn r12555: cache LastInstanceType so we don't needlessly request GetInstanceInfo() nearly as much (especially checkwipe function) Disable update notification in pvp, mainly because it's not important to up to date there. Not because someone asked. Only important to for actual raids.
+	- Omega via svn r12554: Better
+	- Omega via svn r12553: Fix bug where blat icon would keep removing/adding over and over again.
+	- Omega via svn r12552: use combined for slow as well
+	- Omega via svn r12551: use combined show for specWarnBrandedDisplacementNear
+	- nbluewiz via svn r12550: # combined show for special warning.
+	- Omega via svn r12549: Remove /help from help menu. add /range instead. Telling you how to get to help menu, in the help menu, not useful. Documenting how to use range frame is a bit more useful.
+	- Omega via svn r12548: Support reverse range.
+	- nbluewiz via svn r12547: # koKR update.
+	- Omega via svn r12546: Bump BW version
+	- tandanu via svn r12545: create default profile if you somehow lost it
+	- tandanu via svn r12544: increment alpha verison

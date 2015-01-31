@@ -1,0 +1,11 @@
+## Interface: 60000
+## Title: Derpy Stuffing
+## Version: Step 25
+## Author: Hungtar, AlleyKat, Humfras
+## Notes: An edited version of stuffing.
+## RequiredDeps: DerpyMedia
+## SavedVariablesPerCharacter: DerpyStuffingDB
+
+
+stuff.lua
+SortBags.lua

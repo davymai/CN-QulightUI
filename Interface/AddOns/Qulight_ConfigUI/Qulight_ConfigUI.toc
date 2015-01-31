@@ -1,0 +1,14 @@
+## Interface: 60000
+## Title: |cff0080ffQulight Config UI|r
+## Title-zhCN: [界面]|cff0080ffQulight Config UI|r
+## Notes: Someday there is only pantesaur left.
+## Author: Qulight
+## SavedVariables: QulightConfigAll, QulightConfigSettings
+## SavedVariablesPerCharacter: QulightConfig
+## RequiredDeps: QulightUI
+
+local\english.lua
+local\russian.lua
+local\zhCN.lua
+
+core.lua

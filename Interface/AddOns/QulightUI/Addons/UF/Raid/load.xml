@@ -1,0 +1,9 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="elements\RaidDebuffs.lua" />
+	<Script file="elements\AuraTracker.lua" />
+    <Script file="elements\AuraWatch.lua" />
+    <Script file="elements\range.lua" />
+    <Script file="elements\AutoResurrect.lua" />	
+    <Script file="raid.lua" />
+    <Script file="tags.lua" />  
+</Ui>
