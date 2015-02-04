@@ -1,5 +1,5 @@
 local _, T = ...
-if T.Mark ~= 16 then return end
+if T.Mark ~= 23 then return end
 local EV, G, L = T.Evie, T.Garrison, T.L
 
 local roamingParty, easyDrop = T.MissionsUI.roamingParty, T.MissionsUI.easyDrop
@@ -180,17 +180,26 @@ hooksecurefunc("GarrisonFollowerList_Update", function(self)
 		end
 	end
 end)
-hooksecurefunc("GarrisonFollowerButton_UpdateCounters", function(self)
-	for i=1,#self.Counters do
-		local self = self.Counters[i]
-		if not self:GetScript("OnHide") then
-			self:SetScript("OnHide", self:GetScript("OnLeave"))
-		end
-		if self:IsShown() and self:IsMouseOver() then
-			self:GetScript("OnEnter")(self)
-		end
+do -- Follower counter button tooltips
+	local fake, old = {}
+	local function OnEnter(self, ...)
+		old, fake.info = self, self.info
+		return GarrisonMissionMechanicFollowerCounter_OnEnter(self, ...)
 	end
-end)
+	hooksecurefunc("GarrisonFollowerButton_UpdateCounters", function(self)
+		if old and (fake.info ~= old.info or not (old:IsShown() and old:IsMouseOver())) then
+			GarrisonMissionMechanicFollowerCounter_OnLeave(fake)
+			old, fake.info = nil
+		end
+		for i=1,#self.Counters do
+			local self = self.Counters[i]
+			self:SetScript("OnEnter", OnEnter)
+			if self:IsShown() and self:IsMouseOver() then
+				OnEnter(self)
+			end
+		end
+	end)
+end
 
 hooksecurefunc("GarrisonFollowerList_Update", function(self)
 	local buttons, fl = self.FollowerList.listScroll.buttons, G.GetFollowerInfo()
@@ -221,9 +230,8 @@ hooksecurefunc("GarrisonFollowerList_Update", function(self)
 	end
 end)
 local function Mechanic_OnClick(self)
-	if self:IsMouseOver() and self.info and self.info.name then
-		GarrisonMissionFrameFollowers.SearchBox:SetText(self.info.name)
-		GarrisonMissionFrameFollowers.SearchBox.clearText = self.info.name
+	if self:IsMouseOver() then
+		T.Mechanic_OnClick(self)
 	end
 end
 hooksecurefunc("GarrisonMissionPage_SetEnemies", function(enemies)
@@ -428,19 +436,30 @@ do -- Counter-follower lists
 		return t
 	end
 	local function GetTraitListText(trait, mlvl)
-		local finfo, c, cn = G.GetFollowerInfo(), {}, 1
+		local finfo, c, c2, cn = G.GetFollowerInfo(), {}, {}, 1
 		for k,v in pairs(finfo) do
 			if v.isCollected and v.traits and v.traits[trait] then
 				c[cn], cn = k, cn + 1
+			end
+			if v.isCollected and v.affinity == trait then
+				c2[#c2 + 1] = k
 			end
 		end
 		local mi = GarrisonMissionFrame.MissionTab.MissionPage.missionInfo
 		local mlvl = mlvl or mi and G.GetFMLevel(mi) or 0
 		T.Garrison.sortByFollowerLevels(c, finfo)
+		T.Garrison.sortByFollowerLevels(c2, finfo)
 		for i=1,#c do
 			c[i] = T.Garrison.GetFollowerLevelDescription(c[i], mlvl, finfo[c[i]])
 		end
-		return cn > 1 and (NORMAL_FONT_COLOR_CODE .. L"Followers with this trait:" .. "|r\n" .. table.concat(c, "\n")) or ""
+		local base = cn > 1 and (NORMAL_FONT_COLOR_CODE .. L"Followers with this trait:" .. "|r\n" .. table.concat(c, "\n")) or ""
+		if #c2 > 0 then
+			for i=1,#c2 do
+				c2[i] = T.Garrison.GetFollowerLevelDescription(c2[i], mlvl, finfo[c[i]])
+			end
+			base = (cn > 1 and (base .. "\n\n") or "") .. NORMAL_FONT_COLOR_CODE .. L"Followers activating this trait:" .. "|r\n" .. table.concat(c2, "\n")
+		end
+		return base
 	end
 	
 	local atip = GarrisonFollowerAbilityTooltip
