@@ -465,15 +465,15 @@ HelpOpenTicketButton:SetParent(f)
 -- Mouseover map, displaying zone and coords
 ----------------------------------------------------------------------------------------
 --增加地图名称显示
-local m_zone = CreateFrame("Frame","QuMinimapZone",minimap)
---SimpleBackground(m_zone, 85, 10, "TOP", minimaplol, "TOP", 0, 0)
-m_zone:SetSize(150, 16)
-m_zone:SetPoint("TOP", minimaplol, "TOP", 0, 5)
+local m_zone = CreateFrame("Frame","QuMinimapZone",UIParent)
+SimpleBackground(m_zone, 85, 10, "TOP", UIParent, "TOP", 0, 0)
+m_zone:SetSize(155, 16)
+m_zone:SetPoint("TOP", UIParent, "TOP", 1, -3)
 m_zone:SetFrameLevel(3)
 m_zone:SetFrameStrata("MEDIUM")
 
 local m_zone_text = m_zone:CreateFontString(nil, "Overlay")
-m_zone_text:SetFont(Qulight["media"].font, 8 ,"OUTLINE")
+m_zone_text:SetFont(Qulight["media"].font, 10 ,"OUTLINE")
 m_zone_text:SetPoint("Center",0,0)
 m_zone_text:SetJustifyH("CENTER")
 m_zone_text:SetJustifyV("MIDDLE")

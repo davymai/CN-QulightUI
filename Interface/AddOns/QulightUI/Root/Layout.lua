@@ -27,12 +27,11 @@ CreateStyle(ChatPanel, 2)
 ChatPanel:SetAlpha(.5)
 
 Anchordamagelol = CreateFrame("Frame","Move_damagelol",UIParent)
-Anchordamagelol:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -3, 3)
---Anchordamagelol:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -3, 18)
+--Anchordamagelol:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -3, 3)
+Anchordamagelol:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -3, 18)
 CreateAnchor(Anchordamagelol, "Move Damage Background", 440, 172)
 
 local ChatPanelTwo = CreateFrame("Frame", "ChatPanelRight", UIParent)
---CreatePanel(ChatPanelTwo, 440, 172, "BOTTOMRIGHT", Anchordamagelol)
 CreatePanel(ChatPanelTwo, 440, 172, "BOTTOMRIGHT", Anchordamagelol)
 CreateStyle(ChatPanelTwo, 2)
 -- 右侧信息栏背景透明度
@@ -53,8 +52,8 @@ local LeftTabPanel = CreateFrame("Frame", "LeftTabPanel", UIParent)
 CreateStyle(LeftTabPanel, 3, 1)
 
 local RightInfoPanel = CreateFrame("Frame", "DataRightPanel", UIParent)
---SimpleBackground(RightInfoPanel, 430, 15, "BOTTOM", ChatPanelTwo, "BOTTOM", 0, 5)
-SimpleBackground(RightInfoPanel, 420, 15, "TOPRIGHT", ChatPanelTwo, "TOPRIGHT", -1, 0)
+SimpleBackground(RightInfoPanel, 428, 15, "BOTTOMRIGHT", ChatPanelTwo, "BOTTOMRIGHT", -1, -5)
+--SimpleBackground(RightInfoPanel, 428, 15, "TOPRIGHT", ChatPanelTwo, "TOPRIGHT", -1, 0)
 CreateStyle(RightInfoPanel, 3, 1)
 
 --[[屏蔽左右信息栏
@@ -70,7 +69,7 @@ end
 ]]
 Anchorminimaplol = CreateFrame("Frame","Move_minimaplol",UIParent)
 --Anchorminimaplol:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 3, -3)
-Anchorminimaplol:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -5, -5)
+Anchorminimaplol:SetPoint("TOPLEFT", ChatPanelTwo, "TOPLEFT", 10, 0)
 CreateAnchor(Anchorminimaplol, "Move Minimap", Qulight["minimapp"].size+4, Qulight["minimapp"].size+4)
 
 local minimaplol = CreateFrame("Frame", "minimaplol", UIParent)

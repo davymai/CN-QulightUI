@@ -3,7 +3,7 @@ local addon, ns = ...
 
 AnchorBuff = CreateFrame("Frame","Move_Buff",UIParent)
 --AnchorBuff:SetPoint("TOPRIGHT", UIParent, -3, -3)
-AnchorBuff:SetPoint("TOPRIGHT", UIParent, -180, -5)
+AnchorBuff:SetPoint("TOPRIGHT", UIParent, -3, -5)
 CreateAnchor(AnchorBuff, "Move Buff", 300, 70)
 
 local mainhand, _, _, offhand, _, _, hand3 = GetWeaponEnchantInfo()
