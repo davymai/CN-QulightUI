@@ -329,7 +329,7 @@ local updateFS = function(self, inc, flags, ...)
 	local fstring = self:GetFontString()
 
 	local font, fontSize = inherit:GetFont()
-	fstring:SetFont(Qulight["media"].font, Qulight["media"].fontsize, flags)
+	fstring:SetFont(Qulight["media"].font, Qulight["media"].fontsize-3, flags)
 	if((...)) then
 		fstring:SetTextColor(...)
 	end
@@ -513,8 +513,9 @@ copyicon = "Interface\\AddOns\\QulightUI\\Root\\Media\\copy"
 for i = 1, NUM_CHAT_WINDOWS do
 	local cf = _G[format("ChatFrame%d",  i)]
 	local button = CreateFrame("Button", format("ButtonCF%d", i), cf)
-	button:SetPoint("TOPRIGHT", 5, 20)
-	button:SetHeight(15)
+	button:SetPoint("TOPRIGHT", 5, 0)
+	--button:SetPoint("TOPRIGHT", 5, 20)
+	button:SetHeight(20)
 	button:SetWidth(20)
 	button:SetNormalTexture(copyicon)
 	button:SetAlpha(0)
@@ -529,8 +530,8 @@ for i = 1, NUM_CHAT_WINDOWS do
 	button:SetScript("OnEnter", function()
 		button:SetAlpha(1)
 	end)
-	button:SetScript("OnLeave", function() button:SetAlpha(.4) end)
-	button:SetAlpha(.4)
+	button:SetScript("OnLeave", function() button:SetAlpha(0) end)
+		--button:SetAlpha(.4)
 
 end
 

@@ -52,7 +52,7 @@ local LeftTabPanel = CreateFrame("Frame", "LeftTabPanel", UIParent)
 CreateStyle(LeftTabPanel, 3, 1)
 
 local RightInfoPanel = CreateFrame("Frame", "DataRightPanel", UIParent)
-SimpleBackground(RightInfoPanel, 428, 15, "BOTTOMRIGHT", ChatPanelTwo, "BOTTOMRIGHT", -1, -5)
+SimpleBackground(RightInfoPanel, 437, 15, "BOTTOMRIGHT", ChatPanelTwo, "BOTTOMRIGHT", -2, -5)
 --SimpleBackground(RightInfoPanel, 428, 15, "TOPRIGHT", ChatPanelTwo, "TOPRIGHT", -1, 0)
 CreateStyle(RightInfoPanel, 3, 1)
 
@@ -69,7 +69,7 @@ end
 ]]
 Anchorminimaplol = CreateFrame("Frame","Move_minimaplol",UIParent)
 --Anchorminimaplol:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 3, -3)
-Anchorminimaplol:SetPoint("TOPLEFT", ChatPanelTwo, "TOPLEFT", 10, 0)
+Anchorminimaplol:SetPoint("TOPLEFT", ChatPanelTwo, "TOPLEFT", 0, 0)
 CreateAnchor(Anchorminimaplol, "Move Minimap", Qulight["minimapp"].size+4, Qulight["minimapp"].size+4)
 
 local minimaplol = CreateFrame("Frame", "minimaplol", UIParent)
