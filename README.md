@@ -3,9 +3,9 @@
 [![Version](http://img04.taobaocdn.com/imgextra/i4/40190388/TB2gsZLbFXXXXcZXXXXXXXXXXXX_!!40190388.png)](https://github.com/davymai/CN-QulightUI)
 
 QulightUI 界面汉化，基于最新版[QulightUI](http://qulightui.org/)汉化，跟随原作者版本更新。
-![Screenshot](http://img03.taobaocdn.com/imgextra/i3/40190388/TB2GKIAbFXXXXaUXpXXXXXXXXXX_!!40190388.jpg)
-
 ![Screenshot](http://img03.taobaocdn.com/imgextra/i3/40190388/TB2KVwJbFXXXXbwXXXXXXXXXXXX_!!40190388.jpg)
+
+![Screenshot](http://img01.taobaocdn.com/imgextra/i1/40190388/TB2._aXbVXXXXaIXXXXXXXXXXXX_!!40190388.jpg)
 
 ## 安装说明
 
@@ -31,6 +31,8 @@ QulightUI 界面汉化，基于最新版[QulightUI](http://qulightui.org/)汉化
 * SuccessfulInterruptAnnouncer - 打断通报
 * Tao - 武僧插件
 * Zmini - 各种小插件
+
+** 本插件包并不包含 WeakAuras 有需要的请自行[下载](http://pan.baidu.com/s/1qWuQ4Ni)，本人仅提供 [盗，德，猎，牧，战 5职业字符串](http://pan.baidu.com/s/1pJ5bXfd)，其他职业亲们自行解决。
 
 ## License
 
