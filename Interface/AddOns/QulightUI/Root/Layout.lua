@@ -160,7 +160,7 @@ if Qulight["actionbar"].enable then
 	AnchorQuBar7 = CreateFrame("Frame","Move_Bar7",UIParent)
 	--AnchorQuBar7:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 41)
 	--CreateAnchor(AnchorQuBar7, "Move Bar7", (buttonsize * 12) + (buttonspacing * 13), buttonsize)
-	AnchorQuBar7:SetPoint("RIGHT", ChatPanelTwo, "BOTTOMLEFT", -70, 51)
+	AnchorQuBar7:SetPoint("RIGHT", ChatPanelTwo, "BOTTOMLEFT", -70, 36)
 	CreateAnchor(AnchorQuBar7, "Move Bar7", (buttonsize * 6) + (buttonspacing * 7), (buttonsize * 2) + (buttonspacing * 4))
 
 	local QuBar7 = CreateFrame("Frame", "QuBar7", UIParent)
