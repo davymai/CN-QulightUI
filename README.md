@@ -3,9 +3,10 @@
 [![Version](http://img04.taobaocdn.com/imgextra/i4/40190388/TB2gsZLbFXXXXcZXXXXXXXXXXXX_!!40190388.png)](https://github.com/davymai/CN-QulightUI)
 
 QulightUI 界面汉化，基于最新版[QulightUI](http://qulightui.org/)汉化，跟随原作者版本更新。
+
 ![Screenshot](http://img03.taobaocdn.com/imgextra/i3/40190388/TB2KVwJbFXXXXbwXXXXXXXXXXXX_!!40190388.jpg)
 
-![Screenshot](http://img01.taobaocdn.com/imgextra/i1/40190388/TB2._aXbVXXXXaIXXXXXXXXXXXX_!!40190388.jpg)
+![Screenshot](http://img01.taobaocdn.com/imgextra/i1/40190388/TB29I47bVXXXXbkXXXXXXXXXXXX_!!40190388.jpg)
 
 ## 安装说明
 
