@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod(1197, "DBM-Highmaul", nil, 477)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12580 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12926 $"):sub(12, -3))
 mod:SetCreatureID(77428, 78623)
 mod:SetEncounterID(1705)
 mod:SetZone()
-mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)--Unknown total number of icons replication will use.
+mod:SetUsedIcons(1, 2, 3)
 mod:SetBossHPInfoToHighest()--For mythic chogal
 --Could not find south path on internet
 mod:SetHotfixNoticeRev(12370)
@@ -53,22 +53,22 @@ local warnInfiniteDarkness						= mod:NewTargetAnnounce(165102, 3, nil, "Healer"
 
 --All Phases
 --Special warnings cannot be combined because it breaks custom sounds, however, they will be grouped up better now at least.
-local specWarnDestructiveResonance				= mod:NewSpecialWarningSpell(156467, nil, nil, nil, 2)
-local specWarnDestructiveResonanceDisplacement	= mod:NewSpecialWarningSpell(164075, nil, nil, nil, 2)
-local specWarnDestructiveResonanceFortification	= mod:NewSpecialWarningSpell(164076, nil, nil, nil, 2)
-local specWarnDestructiveResonanceReplication	= mod:NewSpecialWarningSpell(164077, nil, nil, nil, 2)
+local specWarnDestructiveResonance				= mod:NewSpecialWarningCount(156467, nil, nil, nil, 2)
+local specWarnDestructiveResonanceDisplacement	= mod:NewSpecialWarningCount(164075, nil, nil, nil, 2)
+local specWarnDestructiveResonanceFortification	= mod:NewSpecialWarningCount(164076, nil, nil, nil, 2)
+local specWarnDestructiveResonanceReplication	= mod:NewSpecialWarningCount(164077, nil, nil, nil, 2)
 
-local specWarnMarkOfChaos						= mod:NewSpecialWarningMoveAway(158605, nil, nil, nil, 3, nil, true)
-local specWarnMarkOfChaosDisplacement			= mod:NewSpecialWarningMoveAway(164176, nil, nil, nil, 3, nil, true)
-local specWarnMarkOfChaosFortification			= mod:NewSpecialWarningMoveAway(164178, nil, nil, nil, 3, nil, true)
-local specWarnMarkOfChaosReplication			= mod:NewSpecialWarningMoveAway(164191, nil, nil, nil, 3, nil, true)
+local specWarnMarkOfChaos						= mod:NewSpecialWarningMoveAway(158605, nil, nil, nil, 3, nil, 2)
+local specWarnMarkOfChaosDisplacement			= mod:NewSpecialWarningMoveAway(164176, nil, nil, nil, 3, nil, 2)
+local specWarnMarkOfChaosFortification			= mod:NewSpecialWarningMoveAway(164178, nil, nil, nil, 3, nil, 2)
+local specWarnMarkOfChaosReplication			= mod:NewSpecialWarningMoveAway(164191, nil, nil, nil, 3, nil, 2)
 
-local specWarnMarkOfChaosFortificationNear		= mod:NewSpecialWarningClose(164178, nil, nil, nil, 3, nil, true)
+local specWarnMarkOfChaosFortificationNear		= mod:NewSpecialWarningClose(164178, nil, nil, nil, 3, nil, 2)
 local yellMarkOfChaosFortification				= mod:NewYell(164178)
 local yellMarkOfChaosReplication				= mod:NewYell(164191)
 
-local specWarnForceNova							= mod:NewSpecialWarningSpell(157349, nil, nil, nil, 2, nil, true)
-local specWarnForceNovaRep						= mod:NewSpecialWarningMoveAway(164240, nil, nil, nil, 3, nil, true)
+local specWarnForceNova							= mod:NewSpecialWarningSpell(157349, nil, nil, nil, 2)
+local specWarnForceNovaRep						= mod:NewSpecialWarningMoveAway(164240, nil, nil, nil, 3, nil, 2)
 
 local specWarnBranded							= mod:NewSpecialWarningStack(156225, nil, 5)--Debuff Name "Branded" for Arcane Wrath
 local specWarnBrandedDisplacement				= mod:NewSpecialWarningStack(164004, nil, 5)
@@ -78,20 +78,20 @@ local yellBranded								= mod:NewYell(156225, L.BrandedYell)
 
 local specWarnBrandedDisplacementNear			= mod:NewSpecialWarningClose(164004)--Displacement version of branded makes player unable to move from raid, raid moves from player
 
-local specWarnAberration						= mod:NewSpecialWarningSwitchCount("ej9945", "-Healer")--can use short name for all of them
+local specWarnAberration						= mod:NewSpecialWarningSwitchCount("ej9945", "-Healer", nil, nil, nil, nil, 2)--can use short name for all of them
 
 local specWarnAcceleratedAssault				= mod:NewSpecialWarningCount(159515, nil, DBM_CORE_AUTO_SPEC_WARN_OPTIONS.stack:format(5, 159515))
-local specWarnAcceleratedAssaultOther			= mod:NewSpecialWarningTaunt(159515, nil, nil, nil, nil, nil, true)
+local specWarnAcceleratedAssaultOther			= mod:NewSpecialWarningTaunt(159515, nil, nil, nil, nil, nil, 2)
 
-local specWarnMarkOfChaosOther					= mod:NewSpecialWarningTaunt(158605, nil, nil, nil, nil, nil, true)
-local specWarnMarkOfChaosDisplacementOther		= mod:NewSpecialWarningTaunt(164176, nil, nil, nil, nil, nil, true)
-local specWarnMarkOfChaosFortificationOther		= mod:NewSpecialWarningTaunt(164178, nil, nil, nil, nil, nil, true)
-local specWarnMarkOfChaosReplicationOther		= mod:NewSpecialWarningTaunt(164191, nil, nil, nil, nil, nil, true)
+local specWarnMarkOfChaosOther					= mod:NewSpecialWarningTaunt(158605, nil, nil, nil, nil, nil, 2)
+local specWarnMarkOfChaosDisplacementOther		= mod:NewSpecialWarningTaunt(164176, nil, nil, nil, nil, nil, 2)
+local specWarnMarkOfChaosFortificationOther		= mod:NewSpecialWarningTaunt(164178, nil, nil, nil, nil, nil, 2)
+local specWarnMarkOfChaosReplicationOther		= mod:NewSpecialWarningTaunt(164191, nil, nil, nil, nil, nil, 2)
 
 --Intermission: Dormant Runestones
-local specWarnFixate							= mod:NewSpecialWarningMoveAway(157763, nil, nil, nil, nil, nil, true)
+local specWarnFixate							= mod:NewSpecialWarningMoveAway(157763, nil, nil, nil, nil, nil, 2)
 local yellFixate								= mod:NewYell(157763)
-local specWarnSlow								= mod:NewSpecialWarningDispel(157801, "Healer", nil, nil, nil, nil, true)--Seems CD long enough not too spammy, requested feature.
+local specWarnSlow								= mod:NewSpecialWarningDispel(157801, "Healer", nil, nil, nil, nil, 2)--Seems CD long enough not too spammy, requested feature.
 local specWarnTransitionEnd						= mod:NewSpecialWarningEnd(157278)
 local specWarnNetherEnergy						= mod:NewSpecialWarningCount(178468)
 --Intermission: Lineage of Power
@@ -100,8 +100,8 @@ local specWarnKickToTheFaceOther				= mod:NewSpecialWarningTaunt(158563)
 --Mythic
 local specWarnGaze								= mod:NewSpecialWarningStack(165595, nil, 1)
 local yellGaze									= mod:NewYell(165595, L.GazeYell)
-local specWarnEnvelopingNight					= mod:NewSpecialWarningSpell(165876, nil, nil, nil, 2, nil, true)
-local specWarnGrowingDarkness					= mod:NewSpecialWarningMove(176533, nil, nil, nil, nil, nil, true)
+local specWarnEnvelopingNight					= mod:NewSpecialWarningSpell(165876, nil, nil, nil, 2, nil, 2)
+local specWarnGrowingDarkness					= mod:NewSpecialWarningMove(176533, nil, nil, nil, nil, nil, 2)
 local specWarnDarkStar							= mod:NewSpecialWarningSpell(178607, nil, nil, nil, 2)--Change to target/near warning if targetscanning or any other method to detect target possible.
 
 --All Phases (No need to use different timers for empowered abilities. Short names better for timers.)
@@ -124,8 +124,9 @@ local timerGlimpseOfMadnessCD					= mod:NewNextCountTimer(27, 165243)
 local timerInfiniteDarknessCD					= mod:NewNextTimer(62, 165102)
 local timerEnvelopingNightCD					= mod:NewNextCountTimer(63, 165876)--60 seconds plus 3 second cast
 local timerDarkStarCD							= mod:NewCDTimer(61, 178607)--61-65 Variations noticed
+local timerNightTwistedCD						= mod:NewTimer(30, "timerNightTwistedCD", 172138)
 
-local countdownArcaneWrath						= mod:NewCountdown(50, 156238, "-Tank")--Probably will add for whatever proves most dangerous on mythic
+local countdownArcaneWrath						= mod:NewCountdown("OptionVersion2", 50, 156238, false)--Important to the assigned soakers on mythic, but pretty much spam to everyone else
 local countdownMarkofChaos						= mod:NewCountdown("Alt50", 158605, "Tank")
 local countdownForceNova						= mod:NewCountdown("AltTwo45", 157349)
 local countdownTransition						= mod:NewCountdown(74, 157278)
@@ -138,7 +139,7 @@ local voiceDestructiveResonance 				= mod:NewVoice(156467, "-Melee")
 local voiceForceNova	 						= mod:NewVoice(157349)
 local voiceAcceleratedAssault					= mod:NewVoice(159515, "Tank")
 local voiceMarkOfChaos							= mod:NewVoice(158605)
-local voicePhaseChange							= mod:NewVoice(nil, nil, DBM_CORE_AUTO_VOICE2_OPTION_TEXT) --this string should write into language file
+local voicePhaseChange							= mod:NewVoice(nil, nil, DBM_CORE_AUTO_VOICE2_OPTION_TEXT)
 local voiceFixate								= mod:NewVoice(157763)
 local voiceArcaneAberration						= mod:NewVoice("OptionVersion2", 156471, "-Healer")
 local voiceEnvelopingNight 						= mod:NewVoice(165876)
@@ -150,6 +151,8 @@ mod:AddRangeFrameOption("35/13/5")
 mod:AddSetIconOption("SetIconOnBrandedDebuff", 156225, false)
 mod:AddSetIconOption("SetIconOnInfiniteDarkness", 165102, false)
 mod:AddInfoFrameOption(176537)
+mod:AddHudMapOption("HudMapOnMarkOfChaos", 158605)
+mod:AddHudMapOption("HudMapOnBranded", 156225, false)
 mod:AddDropdownOption("GazeYellType", {"Countdown", "Stacks"}, "Countdown", "misc")
 
 mod.vb.markActive = false
@@ -164,6 +167,7 @@ mod.vb.phase = 1
 mod.vb.arcaneAdd = 0
 mod.vb.madnessAdd = 0
 mod.vb.envelopingCount = 0
+mod.vb.mineCount = 0
 
 local jumpDistance1 = {
 	[1] = 200, [2] = 100, [3] = 50, [4] = 25, [5] = 12.5, [6] = 7,--Or 5
@@ -178,6 +182,9 @@ local playerName = UnitName("player")
 local chogallName = EJ_GetEncounterInfo(167)
 local inter1 = EJ_GetSectionInfo(9891)
 local inter2 = EJ_GetSectionInfo(9893)
+local DBMHudMap = DBMHudMap
+local markOfChaosMarkers={}
+local brandedMarkers={}
 
 local debuffFilterMark, debuffFilterBranded, debuffFilterFixate, debuffFilterGaze
 do
@@ -259,6 +266,17 @@ local function updateRangeFrame(self, markPreCast)
 	end
 end
 
+local function trippleMarkCheck(self, target, first)
+	updateRangeFrame(self)
+	if self:CheckNearby(36, target) then--Second and third check will use smaller range
+		specWarnMarkOfChaosFortificationNear:Show(target)
+		voiceMarkOfChaos:Play("justrun")
+	end
+	if first then
+		self:Schedule(2.5, trippleMarkCheck, self, target)
+	end
+end
+
 local function delayedRangeUpdate(self)
 	self.vb.RepNovaActive = nil
 	updateRangeFrame(self)
@@ -279,6 +297,7 @@ function mod:OnCombatStart(delay)
 	self.vb.arcaneAdd = 0
 	self.vb.madnessAdd = 0
 	self.vb.envelopingCount = 0
+	self.vb.mineCount = 0
 	timerArcaneWrathCD:Start(6-delay)
 	countdownArcaneWrath:Start(6-delay)
 	timerDestructiveResonanceCD:Start(15-delay)
@@ -300,6 +319,10 @@ function mod:OnCombatStart(delay)
 	else
 		self:SetBossHPInfoToHighest(1)
 	end
+	if self.Options.HudMapOnMarkOfChaos or self.Options.HudMapOnBranded then
+		table.wipe(markOfChaosMarkers)
+		self:EnableHudMap()
+	end
 end
 
 function mod:OnCombatEnd()
@@ -310,6 +333,9 @@ function mod:OnCombatEnd()
 		DBM.InfoFrame:Hide()
 	end
 	self:UnregisterShortTermEvents()
+	if self.Options.HudMapOnMarkOfChaos or self.Options.HudMapOnBranded then
+		self:DisableHudMap()
+	end
 end
 
 function mod:SPELL_CAST_START(args)
@@ -318,34 +344,52 @@ function mod:SPELL_CAST_START(args)
 		timerArcaneWrathCD:Start()
 		countdownArcaneWrath:Start()
 	-----
+	--Users complain BW timers more accurate. here is proof BW timers are completely wrong actually
+	--There is no magic timer table for mines. It's a variable cd (a shitty one at that) that cannot be predicted accurately.
+	--Only good timer is a 15 second CD timer :\
+	--Normal https://www.warcraftlogs.com/reports/wCjznkx4TNPMhXr7#fight=46&view=events&pins=2%24Off%24%23244F4B%24expression%24+(ability.id+%3D+156467+or+ability.id+%3D+164075+or+ability.id+%3D+164076+or+ability.id+%3D+164077)+and+type+%3D+%22begincast%22
+	--Heroic https://www.warcraftlogs.com/reports/wCjznkx4TNPMhXr7#fight=23&view=events&pins=2%24Off%24%23244F4B%24expression%24+(ability.id+%3D+156467+or+ability.id+%3D+164075+or+ability.id+%3D+164076+or+ability.id+%3D+164077)+and+type+%3D+%22begincast%22
+	--Mythic https://www.warcraftlogs.com/reports/cm6BPNGCHQygVxLa#view=events&pins=2%24Off%24%23244F4B%24expression%24+(ability.id+%3D+156467+or+ability.id+%3D+164075+or+ability.id+%3D+164076+or+ability.id+%3D+164077)+and+type+%3D+%22begincast%22
 	elseif spellId == 156467 then
-		specWarnDestructiveResonance:Show()
-		timerDestructiveResonanceCD:Start()
+		self.vb.mineCount = self.vb.mineCount + 1
+		--Normal wipe showing cd is actually 15 again after first https://www.warcraftlogs.com/reports/wCjznkx4TNPMhXr7#fight=22&view=events&pins=2%24Off%24%23244F4B%24expression%24+(ability.id+%3D+156467+or+ability.id+%3D+164075+or+ability.id+%3D+164076+or+ability.id+%3D+164077)+and+type+%3D+%22begincast%22
+		specWarnDestructiveResonance:Show(self.vb.mineCount)
+		if self.vb.mineCount == 1 then
+			timerDestructiveResonanceCD:Start(24)--Only cast it's 24 (for sure), rest 15 (variable).
+		else
+			timerDestructiveResonanceCD:Start()
+		end
 		voiceDestructiveResonance:Play("watchstep")
 	elseif spellId == 164075 then
-		specWarnDestructiveResonanceDisplacement:Show()
+		self.vb.mineCount = self.vb.mineCount + 1
+		specWarnDestructiveResonanceDisplacement:Show(self.vb.mineCount)
 		timerDestructiveResonanceCD:Start()
 		voiceDestructiveResonance:Play("watchstep")
 	elseif spellId == 164076 then
-		specWarnDestructiveResonanceFortification:Show()
+		self.vb.mineCount = self.vb.mineCount + 1
+		specWarnDestructiveResonanceFortification:Show(self.vb.mineCount)
 		timerDestructiveResonanceCD:Start()
 		voiceDestructiveResonance:Play("watchstep")
 	elseif spellId == 164077 then
-		specWarnDestructiveResonanceReplication:Show()
+		self.vb.mineCount = self.vb.mineCount + 1
+		specWarnDestructiveResonanceReplication:Show(self.vb.mineCount)
 		timerDestructiveResonanceCD:Start()
 		voiceDestructiveResonance:Play("watchstep")
 	-----
+	--https://www.warcraftlogs.com/reports/cm6BPNGCHQygVxLa#view=events&pins=2%24Off%24%23244F4B%24expression%24(ability.id+%3D+157349+or+ability.id+%3D+164232+or+ability.id+%3D+164235+or+ability.id+%3D+164240)+and+type+%3D+%22begincast%22&fight=36
 	elseif spellId == 157349 then
 		self.vb.forceCount = self.vb.forceCount + 1
 		specWarnForceNova:Show()
-		timerForceNovaCD:Start(nil, self.vb.forceCount+1)
-		countdownForceNova:Start()
-		voiceForceNova:Schedule(38.5, "157349")
+		local novaTime = self.vb.forceCount == 1 and 46 or 50.5--Often 51, but 2x I did see 50.5 so 50.5 is safer
+		timerForceNovaCD:Start(novaTime, self.vb.forceCount+1)
+		countdownForceNova:Start(novaTime)
+		voiceForceNova:Schedule(novaTime-6.5, "157349")
 	elseif spellId == 164232 then
 		self.vb.forceCount = self.vb.forceCount + 1
-		timerForceNovaCD:Start(nil, self.vb.forceCount+1)
-		countdownForceNova:Start()
-		voiceForceNova:Schedule(38.5, "157349")
+		local novaTime = self.vb.forceCount == 1 and 46 or 50.5
+		timerForceNovaCD:Start(novaTime, self.vb.forceCount+1)
+		countdownForceNova:Start(novaTime)
+		voiceForceNova:Schedule(novaTime-6.5, "157349")
 		if self:IsMythic() and self.vb.phase == 1 then--Also replication empowered
 			self.vb.RepNovaActive = true
 			self:Schedule(9, delayedRangeUpdate, self)
@@ -367,9 +411,10 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 164235 then
 		self.vb.forceCount = self.vb.forceCount + 1
 		specWarnForceNova:Show()
-		timerForceNovaCD:Start(nil, self.vb.forceCount+1)
-		countdownForceNova:Start()
-		voiceForceNova:Schedule(38.5, "157349")
+		local novaTime = self.vb.forceCount == 1 and 46 or 50.5
+		timerForceNovaCD:Start(novaTime, self.vb.forceCount+1)
+		countdownForceNova:Start(novaTime)
+		voiceForceNova:Schedule(novaTime-6.5, "157349")
 		--Fortified novas, 3 novas not just 1. Start additional timer/Countdown for novas 2 and 3
 		timerForceNovaFortification:Start()
 		timerForceNovaFortification:Schedule(9)
@@ -405,10 +450,16 @@ function mod:SPELL_CAST_START(args)
 		self:Schedule(3.5, updateRangeFrame, self)
 		self:Schedule(4, updateRangeFrame, self)
 		specWarnForceNovaRep:Show()
-		timerForceNovaCD:Start(nil, self.vb.forceCount+1)
-		voiceForceNova:Schedule(38.5, "157349")
+		local novaTime = self.vb.forceCount == 1 and 46 or 50.5
+		timerForceNovaCD:Start(novaTime, self.vb.forceCount+1)
+		countdownForceNova:Start(novaTime)
+		voiceForceNova:Schedule(novaTime-6.5, "157349")
 		voiceForceNova:Play("range5") --keep range 5 yards
 	-----
+	--People complained about my method vs BWs method here too.
+	--BW is wrong here too. Heres data:
+	--Mythic: https://www.warcraftlogs.com/reports/cm6BPNGCHQygVxLa#view=events&pins=2%24Off%24%23244F4B%24expression%24%0A(ability.id+%3D+156471+or+ability.id+%3D+164299+or+ability.id+%3D+164301+or+ability.id+%3D+164303)+and+type+%3D+%22begincast%22&fight=28
+	--Normal: https://www.warcraftlogs.com/reports/wCjznkx4TNPMhXr7#fight=46&view=events&pins=2%24Off%24%23244F4B%24expression%24+(ability.id+%3D+156471+or+ability.id+%3D+164299+or+ability.id+%3D+164301+or+ability.id+%3D+164303)+and+type+%3D+%22begincast%22
 	elseif spellId == 156471 then
 		self.vb.arcaneAdd = self.vb.arcaneAdd + 1
 		specWarnAberration:Show(self.vb.arcaneAdd)
@@ -606,6 +657,9 @@ function mod:SPELL_AURA_APPLIED(args)
 				end
 			end
 			updateRangeFrame(self)--Update it here cause we don't need it before stacks get to relevant levels.
+			if self.Options.HudMapOnBranded and not brandedMarkers[args.destName] then
+				brandedMarkers[args.destName] = self:RegisterMarker(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", args.destName, 4, 5, 0, 0, 1, 0.5):Pulse(0.5, 0.5))
+			end
 		end
 	elseif spellId == 158553 then
 		local amount = args.amount or 1
@@ -656,13 +710,19 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		else
 			self.vb.playerHasMark = false
-			if spellId == 164178 and self:CheckNearby(38, args.destName) then
-				specWarnMarkOfChaosFortificationNear:Show(args.destName)
-				voiceMarkOfChaos:Play("justrun")
+			if spellId == 164178 and not self:IsLFR() then
+				if self:CheckNearby(39, args.destName) then
+					specWarnMarkOfChaosFortificationNear:Show(args.destName)
+					voiceMarkOfChaos:Play("justrun")
+				end
+				self:Schedule(3, trippleMarkCheck, self, args.destName, true)
 			end
 		end
 		updateRangeFrame(self)
-	elseif spellId == 157801 then
+		if self.Options.HudMapOnMarkOfChaos and not markOfChaosMarkers[args.destName] then
+			markOfChaosMarkers[args.destName] = self:RegisterMarker(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", args.destName, 5, 7, 1, 0, 0, 0.5):Pulse(0.5, 0.5))
+		end
+	elseif spellId == 157801 and self:CheckDispelFilter() then
 		specWarnSlow:CombinedShow(1, args.destName)
 		voiceSlow:Play("dispelnow")
 	elseif spellId == 165102 then
@@ -723,6 +783,12 @@ function mod:SPELL_AURA_REMOVED(args)
 			self.vb.playerHasMark = false
 		end
 		updateRangeFrame(self)
+		if spellId == 164178 then
+			self:Unschedule(trippleMarkCheck)
+		end
+		if self.Options.HudMapOnMarkOfChaos and markOfChaosMarkers[args.destName] then
+			markOfChaosMarkers[args.destName] = self:FreeMarker(markOfChaosMarkers[args.destName])
+		end
 	elseif spellId == 157763 and args:IsPlayer() and self.Options.RangeFrame then
 		updateRangeFrame(self)
 	elseif args:IsSpellID(156225, 164004, 164005, 164006) then
@@ -734,6 +800,9 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 		updateRangeFrame(self)
+		if self.Options.HudMapOnBranded and brandedMarkers[args.destName] then
+			brandedMarkers[args.destName] = self:FreeMarker(brandedMarkers[args.destName])
+		end
 	elseif spellId == 165102 and self.Options.SetIconOnInfiniteDarkness then
 		self:SetIcon(args.destName, 0)
 	elseif spellId == 165595 then
@@ -790,7 +859,9 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	elseif spellId == 158012 or spellId == 157964 then--Power of Foritification/Replication
 		self.vb.forceCount = 0
 		self.vb.arcaneAdd = 0
+		self.vb.mineCount = 0
 		self.vb.isTransition = false
+		self.vb.noTaunt = false
 		specWarnTransitionEnd:Show()
 		timerArcaneWrathCD:Start(8.5)
 		countdownArcaneWrath:Start(8.5)
@@ -833,7 +904,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		countdownMarkofChaos:Cancel()
 		countdownForceNova:Cancel()
 		voiceForceNova:Cancel()
---[[	local tr1 = timerArcaneWrathCD:GetRemaining()
+		local tr1 = timerArcaneWrathCD:GetRemaining()
 		local tr2 = timerDestructiveResonanceCD:GetRemaining()
 		local tr3 = timerSummonArcaneAberrationCD:GetRemaining()
 		local tr4 = timerMarkOfChaosCD:GetRemaining()
@@ -841,6 +912,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		--if less than 10 seconds remaining on timer bars get delayed.
 		--Figuring out n is problem. It'll still be variable. the only thing consistent is cast order.
 		--but casts can be delayed 3-13 seconds based on how many get backed up in queue :\
+		local n = 10 -- just extend 10s if left time is below 10s.
 		if tr1 > 0 and tr1 < 10 then
 			countdownArcaneWrath:Start(tr1+n)
 			timerArcaneWrathCD:Start(tr1+n)
@@ -852,13 +924,13 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			timerSummonArcaneAberrationCD:Start(tr3+n)
 		end
 		if tr4 > 0 and tr4 < 10 then
-			timerMarkOfChaosCD:Start(tr4+n)		
+			timerMarkOfChaosCD:Start(tr4+n)
 			countdownMarkofChaos:Start(tr4+n)
 		end
 		if tr5 > 0 and tr5 < 10 then
 			timerForceNovaCD:Start(tr5+n)
 			countdownForceNova:Start(tr5+n)
-		end--]]
+		end
 		self.vb.phase = 2
 		warnPhase:Show(DBM_CORE_AUTO_ANNOUNCE_TEXTS.phase:format(2))
 		voicePhaseChange:Play("ptwo")
@@ -866,18 +938,6 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		self.vb.phase = 4
 		warnPhase:Show(DBM_CORE_AUTO_ANNOUNCE_TEXTS.phase:format(4))
 		voicePhaseChange:Play("pfour")
-		timerArcaneWrathCD:Cancel()
-		countdownArcaneWrath:Cancel()
-		timerDestructiveResonanceCD:Cancel()
-		timerSummonArcaneAberrationCD:Cancel()
-		timerMarkOfChaosCD:Cancel()
-		countdownMarkofChaos:Cancel()
-		timerForceNovaCD:Cancel()
-		voiceForceNova:Cancel()
-		countdownForceNova:Cancel()
-		timerForceNovaFortification:Cancel()
-		countdownForceNova:Cancel()
-		specWarnForceNova:Cancel()
 		updateRangeFrame(self)
 		timerInfiniteDarknessCD:Start(9)--First timer 8-12 second variable, almost always 10. I'll make 9 for now so it's semi accurate in both situations
 		timerGlimpseOfMadnessCD:Start(20, 1)
@@ -896,9 +956,33 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	end
 end
 
-function mod:CHAT_MSG_MONSTER_YELL(msg, npc)
-	if npc == chogallName then--Some creative shit right here. Screw localized text. This will trigger off first yell at start of 35 second RP Sender is 丘加利 (Cho'gall)
-		self:UnregisterShortTermEvents()--Unregister Yell
-		timerTransition:Start(34)--Boss/any arcane adds still active during this, so do not cancel timers here, canceled on margok death
+--"<54.77 00:46:30> [CHAT_MSG_MONSTER_YELL] CHAT_MSG_MONSTER_YELL#You know nothing of the power you meddle with, Mar'gok. (It calls to us. We know! Its power will be ours!)#Cho'gall
+--"<64.00 00:46:40> [UNIT_SPELLCAST_SUCCEEDED] Cho'gall [[target:King Prison::0:178540]]", -- [19041]
+do
+	local function stopP3Timers()
+		timerArcaneWrathCD:Cancel()
+		countdownArcaneWrath:Cancel()
+		timerDestructiveResonanceCD:Cancel()
+		timerSummonArcaneAberrationCD:Cancel()
+		timerMarkOfChaosCD:Cancel()
+		countdownMarkofChaos:Cancel()
+		timerForceNovaCD:Cancel()
+		voiceForceNova:Cancel()
+		countdownForceNova:Cancel()
+		timerForceNovaFortification:Cancel()
+		countdownForceNova:Cancel()
+		specWarnForceNova:Cancel()
+	end
+	local function NightTwisted(self)
+		timerNightTwistedCD:Start()
+		self:Schedule(30, NightTwisted, self)
+	end
+	function mod:CHAT_MSG_MONSTER_YELL(msg, npc)
+		if npc == chogallName then--Some creative shit right here. Screw localized text. This will trigger off first yell at start of 35 second RP Sender is 丘加利 (Cho'gall)
+			self:UnregisterShortTermEvents()--Unregister Yell
+			timerTransition:Start(34)--Boss/any arcane adds still active during this, so do not cancel timers here, canceled on margok death
+			self:Schedule(10, stopP3Timers, self)--Terminate timers when King Prison activates.
+			self:Schedule(31, NightTwisted, self)
+		end
 	end
 end

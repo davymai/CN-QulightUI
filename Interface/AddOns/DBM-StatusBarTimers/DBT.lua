@@ -50,15 +50,17 @@ DBT_PersistentOptions = {}
 local barPrototype = {}
 local unusedBars = {}
 local unusedBarObjects = setmetatable({}, {__mode = "kv"})
-local instances = {}
 local updateClickThrough
 local options
 local setupHandlers
 local applyFailed = false
 local totalBars = 0
+local barIsAnimating = false
 local function stringFromTimer(t)
-	if t <= 60 then
+	if t <= DBM.Bars:GetOption("Decimal") then
 		return ("%.1f"):format(t)
+	elseif t <= 60 then
+		return ("%d"):format(t)
 	else
 		return ("%d:%0.2d"):format(t/60, math.fmod(t, 60))
 	end
@@ -169,6 +171,10 @@ options = {
 		type = "number",
 		default = 20,
 	},
+	Decimal = {
+		type = "number",
+		default = 60,
+	},
 	Scale = {
 		type = "number",
 		default = 0.9,
@@ -251,11 +257,6 @@ options = {
 --------------------------
 --  Double Linked List  --
 --------------------------
---
--- this linked list can only contain tables that do not use the fields "prev" and "next"
--- this restriction especially means that an object must not be in two different linked lists at the same time
--- but this is sufficient for DBT here, having a wrapper object would just be an unnecessary overhead
--- special table keys for "prev"/"next" (e.g. userdata values) would add unnecessary complexity
 
 local DLL = {}
 DLL.__index = DLL
@@ -264,10 +265,47 @@ function DLL:Append(obj)
 	if self.first == nil then -- list is empty
 		self.first = obj
 		self.last = obj
-	else -- list is not empty
+		obj:SetPosition()
+	elseif not obj.owner.options.Sort then -- list is not emty
 		obj.prev = self.last
 		self.last.next = obj
 		self.last = obj
+		obj:SetPosition()
+	else
+		local ptr = self.first
+		local barInserted = false
+		while ptr do
+			if not barInserted then
+				if ptr.timer > obj.timer then
+					if ptr == self.first then
+						obj.prev = nil
+						obj.next = self.first
+						self.first.prev = obj
+						self.first = obj
+						obj:SetPosition()
+						ptr.moving = nil
+						ptr:SetPosition()
+					else
+						obj.prev = ptr.prev
+						obj.next = ptr
+						obj.prev.next = obj
+						obj.next.prev = obj
+						obj:SetPosition()
+						ptr.moving = nil
+						ptr:SetPosition()
+					end
+					barInserted = true
+				end
+			end
+			ptr = ptr.next
+		end
+		if not barInserted then
+			obj.prev = self.last
+			obj.next = nil
+			self.last.next = obj
+			self.last = obj
+			obj:SetPosition()
+		end
 	end
 	return obj
 end
@@ -281,11 +319,13 @@ function DLL:Remove(obj)
 	elseif self.first == obj then -- trying to remove the first element
 		self.first = obj.next
 		self.first.prev = nil
+		self.first:MoveToNextPosition()
 	elseif self.last == obj then -- trying to remove the last element
 		self.last = obj.prev
 		self.last.next = nil
 	elseif obj.prev and obj.next then -- trying to remove something in the middle of the list
 		obj.prev.next, obj.next.prev = obj.next, obj.prev
+		obj.next:MoveToNextPosition()
 	end
 	obj.prev = nil
 	obj.next = nil
@@ -340,7 +380,6 @@ do
 		obj.secAnchor:SetClampedToScreen(true)
 		obj.secAnchor:SetMovable(true)
 		obj.secAnchor:Show()
-		tinsert(instances, obj)
 		return obj
 	end
 	
@@ -380,6 +419,16 @@ do
 
 	function DBT:ApplyProfile(id)
 		if not DBT_AllPersistentOptions[_G["DBM_UsedProfile"]] then return end
+		self.options = setmetatable(DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id], optionMT)
+		self:Rearrange()
+	end
+
+	function DBT:CopyProfile(name, id)
+		if not DBT_AllPersistentOptions[_G["DBM_UsedProfile"]] then DBT_AllPersistentOptions[_G["DBM_UsedProfile"]] = {} end
+		if not DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id] then DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id] = {} end
+		if not DBT_AllPersistentOptions[name] then DBT_AllPersistentOptions[name] = {} end
+		if not DBT_AllPersistentOptions[name][id] then DBT_AllPersistentOptions[name][id] = {} end
+		DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id] = DBT_AllPersistentOptions[name][id]
 		self.options = setmetatable(DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id], optionMT)
 		self:Rearrange()
 	end
@@ -454,6 +503,7 @@ do
 		local newBar = self:GetBar(id)
 		if newBar then -- update an existing bar
 			newBar.lastUpdate = GetTime()
+			newBar.huge = huge or nil
 			newBar:SetTimer(timer) -- this can kill the timer and the timer methods don't like dead timers
 			if newBar.dead then return end
 			newBar:SetElapsed(0) -- same
@@ -501,13 +551,14 @@ do
 			local enlargeTime = self.options.Style ~= "BigWigs" and self.options.EnlargeBarsTime or 11
 			if (timer <= enlargeTime or huge) and self:GetOption("HugeBarsEnabled") then -- starts enlarged?
 				newBar.enlarged = true
+				newBar.huge = true
 				self.hugeBars:Append(newBar)
 			else
+				newBar.huge = nil
 				self.smallBars:Append(newBar)
 			end
 			newBar:SetText(id)
 			newBar:SetIcon(icon)
-			newBar:SetPosition()
 			self.bars[newBar] = true
 			newBar:ApplyStyle()
 			newBar:Update(0)
@@ -552,19 +603,6 @@ end
 -----------------------------
 --  General Bar Functions  --
 -----------------------------
---do
---	local function iterator(self, frame)
---		return not frame and self.mainFirstBar or frame and frame.next
---	end
---
---	local function reverseIterator(self, frame)
---		return (not frame and self.mainLastBar) or frame and frame.prev
---	end
---
---	function DBT:GetBarIterator(reverse)
---		return (reverse and reverseIterator) or iterator, self, nil
---	end
---end
 function DBT:GetBarIterator()
 	if not self.bars then
 		DBM:Debug("GetBarIterator failed for unknown reasons")
@@ -620,15 +658,10 @@ function barPrototype:SetTimer(timer)
 end
 
 function barPrototype:ResetAnimations()
-	local next = self.next
 	self:RemoveFromList()
 	self.enlarged = nil
 	self.moving = nil
-	if next then
-		next:MoveToNextPosition()
-	end
 	self.owner.smallBars:Append(self)
-	self:SetPosition()
 end
 
 function barPrototype:Pause()
@@ -651,6 +684,10 @@ function barPrototype:SetElapsed(elapsed)
 	local enlargePer = self.owner.options.Style ~= "BigWigs" and self.owner.options.EnlargeBarsPercent or 0
 	if (self.enlarged or self.moving == "enlarge") and not (self.timer <= enlargeTime or (self.timer/self.totalTime) <= enlargePer) then
 		self:ResetAnimations()
+	elseif self.owner.options.Sort and self.moving ~= "enlarge" then
+		local group = self.enlarged and self.owner.hugeBars or self.owner.smallBars
+		group:Remove(self)
+		group:Append(self)
 	end
 	self:Update(0)
 end
@@ -673,6 +710,7 @@ function barPrototype:SetColor(color)
 	_G[frame_name.."Bar"]:SetStatusBarColor(color.r, color.g, color.b)
 	_G[frame_name.."BarSpark"]:SetVertexColor(color.r, color.g, color.b)
 end
+
 
 ------------------
 --  Bar Update  --
@@ -759,6 +797,7 @@ function barPrototype:Update(elapsed)
 		self.ftimer = self.ftimer + elapsed
 	end
 	if isMoving == "move" and self.moveElapsed <= 0.5 then
+		barIsAnimating = true
 		self.moveElapsed = self.moveElapsed + elapsed
 		local melapsed = self.moveElapsed
 		local newX = self.moveOffsetX + (obj.options[self.enlarged and "HugeBarXOffset" or "BarXOffset"] - self.moveOffsetX) * (melapsed / 0.5)
@@ -771,41 +810,30 @@ function barPrototype:Update(elapsed)
 		frame:ClearAllPoints()
 		frame:SetPoint(self.movePoint, self.moveAnchor, self.moveRelPoint, newX, newY)
 	elseif isMoving == "move" then
-		self.moving = nil
-		self:SetPosition()
-	elseif isMoving == "next" then
+		barIsAnimating = false
 		self.moving = nil
 		self:SetPosition()
 	elseif isMoving == "enlarge" and self.moveElapsed <= 1 then
+		barIsAnimating = true
 		self:AnimateEnlarge(elapsed)
 	elseif isMoving == "enlarge" then
+		barIsAnimating = false
 		self.moving = nil
 		self.enlarged = true
 		obj.hugeBars:Append(self)
 		self:ApplyStyle()
-		self:SetPosition()
 	elseif isMoving == "nextEnlarge" then
+		barIsAnimating = false
 		self.moving = nil
 		self.enlarged = true
 		obj.hugeBars:Append(self)
 		self:ApplyStyle()
-		self:SetPosition()
 	end
 	local enlargeTime = currentStyle ~= "BigWigs" and obj.options.EnlargeBarsTime or 11
 	local enlargePer = currentStyle ~= "BigWigs" and obj.options.EnlargeBarsPercent or 0
-	if (timerValue <= enlargeTime or (timerValue/totaltimeValue) <= enlargePer) and (not self.small) and not self.enlarged and isMoving ~= "enlarge" and obj:GetOption("HugeBarsEnabled") then
-		local next = self.next
+	if (timerValue <= enlargeTime or (timerValue/totaltimeValue) <= enlargePer) and not self.small and not self.enlarged and isMoving ~= "enlarge" and obj:GetOption("HugeBarsEnabled") then
 		self:RemoveFromList()
-		local oldX, oldY
-		if next then
-			oldX = next.frame:GetRight() - next.frame:GetWidth()/2 -- the next frame's point needs to be cleared before we enlarge the bar to prevent the frame from "jumping around"
-			oldY = next.frame:GetTop() -- so we need to save the old point for :MoveToNextPosition() as :GetTop() and :GetRight() might return nil (sometimes? happened only once in 2 weeks of raiding...but it crashed DBT...) after :ClearAllPoints()
-			next.frame:ClearAllPoints()
-		end
 		self:Enlarge()
-		if next then
-			next:MoveToNextPosition(oldX, oldY) -- ugly?
-		end
 	end
 end
 
@@ -861,14 +889,10 @@ end
 --  Bar Cancel  --
 ------------------
 function barPrototype:Cancel()
-	local next = self.next
 	tinsert(unusedBars, self.frame)
 	self.frame:Hide()
 	self.frame.obj = nil
 	self:RemoveFromList()
-	if next then
-		next:MoveToNextPosition()
-	end
 	self.owner.bars[self] = nil
 	unusedBarObjects[self] = self
 	self.dead = true
@@ -946,12 +970,13 @@ local function updateOrientation(self)
 		if not bar.dummy then
 			if bar.moving == "enlarge" then
 				bar.enlarged = true
-				bar.moving = false
-				self.hugeBars:Append(self)
+				bar.moving = nil
+				self.hugeBars:Append(bar)
 				bar:ApplyStyle()
+			else
+				bar.moving = nil
+				bar:SetPosition()
 			end
-			bar.moving = nil
-			bar:SetPosition()
 		end
 	end
 end
@@ -970,7 +995,6 @@ function updateClickThrough(self, newValue)
 		end
 	end
 end
-
 options.ClickThrough.onChange = updateClickThrough
 
 
@@ -1113,11 +1137,11 @@ function barPrototype:SetPosition()
 	end
 end
 
-function barPrototype:MoveToNextPosition(oldX, oldY)
+function barPrototype:MoveToNextPosition()
 	if self.moving == "enlarge" then return end
 	local newAnchor = (self.prev and self.prev.frame) or (self.enlarged and self.owner.secAnchor) or self.owner.mainAnchor
-	local oldX = oldX or (self.frame:GetRight() - self.frame:GetWidth()/2)
-	local oldY = oldY or (self.frame:GetTop())
+	local oldX = self.frame:GetRight() - self.frame:GetWidth()/2
+	local oldY = self.frame:GetTop()
 	self.frame:ClearAllPoints()
 	if self.owner.options.ExpandUpwards then
 		self.movePoint = "BOTTOM"
@@ -1130,9 +1154,11 @@ function barPrototype:MoveToNextPosition(oldX, oldY)
 	end
 	local newX = self.frame:GetRight() - self.frame:GetWidth()/2
 	local newY = self.frame:GetTop()
-	self.frame:ClearAllPoints()
-	self.frame:SetPoint("TOP", newAnchor, "BOTTOM", -(newX - oldX), -(newY - oldY))
-	self.moving = self.owner.options.Style == "BigWigs" and "next" or "move"
+	if self.owner.options.Style ~= "BigWigs" then
+		self.frame:ClearAllPoints()
+		self.frame:SetPoint(self.movePoint, newAnchor, self.moveRelPoint, -(newX - oldX), -(newY - oldY))
+		self.moving = "move"
+	end
 	self.moveAnchor = newAnchor
 	self.moveOffsetX = -(newX - oldX)
 	self.moveOffsetY = -(newY - oldY)
@@ -1186,7 +1212,6 @@ function barPrototype:AnimateEnlarge(elapsed)
 		self.enlarged = true
 		self.owner.hugeBars:Append(self)
 		self:ApplyStyle()
-		self:SetPosition()
 	end
 end
 
@@ -1196,19 +1221,19 @@ end
 ------------------------
 do
 	local function onUpdate(self, elapsed)
-		self.obj.curTime = GetTime()
-		self.obj.delta = self.obj.curTime - self.obj.lastUpdate
-		if (self.obj.moving or "") == "enlarge" or self.obj.delta >= 0.02 then
-			if self.obj then
+		if self.obj then
+			self.obj.curTime = GetTime()
+			self.obj.delta = self.obj.curTime - self.obj.lastUpdate
+			if barIsAnimating or self.obj.delta >= 0.02 then
 				self.obj.lastUpdate = self.obj.curTime
 				self.obj:Update(self.obj.delta)
-			else
-				-- This should *never* happen; .obj is only set to nil when calling :Hide() and :Show() is only called in a function that also sets .obj
-				-- However, there have been several reports of this happening since WoW 5.x, wtf?
-				-- Unfortunately, none of the developers was ever able to reproduce this.
-				-- The bug reports show screenshots of expired timers that are still visible (showing 0.00) with all clean-up operations (positioning, list entry) except for the :Hide() call being performed...
-				self:Hide()
 			end
+		else
+			-- This should *never* happen; .obj is only set to nil when calling :Hide() and :Show() is only called in a function that also sets .obj
+			-- However, there have been several reports of this happening since WoW 5.x, wtf?
+			-- Unfortunately, none of the developers was ever able to reproduce this.
+			-- The bug reports show screenshots of expired timers that are still visible (showing 0.00) with all clean-up operations (positioning, list entry) except for the :Hide() call being performed...
+			self:Hide()
 		end
 	end
 

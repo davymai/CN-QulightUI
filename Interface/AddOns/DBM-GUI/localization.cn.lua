@@ -2,7 +2,7 @@
 -- yleaf(yaroot@gmail.com)
 -- sunlcy@NGA
 -- Mini_Dragon(projecteurs@gmail.com)
--- Last update: Jan 25, 2015@12562
+-- Last update: Feb 15, 2015@12931
 
 if GetLocale() ~= "zhCN" then return end
 if not DBM_GUI_Translations then DBM_GUI_Translations = {} end
@@ -11,9 +11,9 @@ local L = DBM_GUI_Translations
 
 L.MainFrame 				= "Deadly Boss Mods"
 
-L.TranslationByPrefix		= "本地化："
+L.TranslationByPrefix		= "翻译:"
 L.TranslationBy 			= "Mini_Dragon(Brilla@金色平原) 原翻译：Diablohu & yleaf & sunlcy"
-L.Website					= "拜访我们的论坛（英文） |cFF73C2FBwww.deadlybossmods.com|r (托管于 Elitist Jerks!)，或在Twitter上关注首席程序员 @MysticalOS"
+L.Website					= "拜访我们的论坛|cFF73C2FBwww.deadlybossmods.com|r.在Twitter上关注首席程序员 @MysticalOS"
 L.WebsiteButton				= "论坛"
 
 L.OTabBosses				= "模块"
@@ -69,10 +69,10 @@ L.Latency_Text				= "设定启用同步功能的最高延迟阈值：%d"
 L.TimerGeneral 				= "DBM计时条综合设置"
 L.SKT_Enabled				= "总是显示最速胜利计时条(覆盖首领特定的选项)"
 L.CRT_Enabled				= "显示下一次可战复CD (限德拉诺团队本)"
-L.ChallengeTimerOptions			= "设置挑战模式最佳记录计时条"
-L.ChallengeTimerPersonal		= "个人"
-L.ChallengeTimerGuild			= "公会"
-L.ChallengeTimerRealm			= "服务器"
+L.ChallengeTimerOptions		= "设置挑战模式最佳记录计时条"
+L.ChallengeTimerPersonal	= "个人"
+L.ChallengeTimerGuild		= "公会"
+L.ChallengeTimerRealm		= "服务器"
 
 L.ModelOptions				= "3D模型选项"
 L.EnableModels				= "在首领选项中启用3D模型"
@@ -86,7 +86,7 @@ L.Button_TestBars			= "测试计时条"
 
 -- Tab: Raidwarning
 L.Tab_RaidWarning 			= "团队警报"
-L.RaidWarning_Header			= "团队警报设置"
+L.RaidWarning_Header		= "团队警报设置"
 L.RaidWarnColors 			= "团队警报颜色"
 L.RaidWarnColor_1 			= "颜色1"
 L.RaidWarnColor_2 			= "颜色2"
@@ -100,13 +100,17 @@ L.ShowFakedRaidWarnings 	= "以伪装团队警报信息的方式显示警报内�
 L.WarningIconLeft 			= "左侧显示图标"
 L.WarningIconRight 			= "右侧显示图标"
 L.WarningIconChat 			= "在聊天窗口中显示图标"
-L.RaidWarnMessage 			= "感谢您使用Deadly Boss Mods"
-L.BarWhileMove 				= "可移动团队警报"
+L.Warn_FontType				= "选择字体"
+L.Warn_FontStyle			= "选择样式"
+L.Warn_FontShadow			= "阴影"
+L.Warn_FontSize				= "字体大小: %d"
+L.Warn_Duration				= "警告持续时间: %d 秒"
+L.None						= "无"
+L.Outline					= "描边"
+L.ThickOutline				= "加粗描边"
+L.MonochromeOutline			= "单色描边"
+L.MonochromeThickOutline	= "单色加粗描边"
 L.RaidWarnSound				= "发出团队警报时播放声音"
-L.SpecialWarnSound			= "针对你发出特殊警报时播放的声音"
-L.SpecialWarnSound2			= "针对所有人发出特殊警报时播放的声音(默认:当心)"
-L.SpecialWarnSound3			= "针对非常重要事件(灭团点)的特殊警报播放的声音(默认:毁灭)"
-L.SpecialWarnSound4			= "特殊警报: 快跑啊 小女孩"
 
 -- Tab: Generalwarnings
 L.Tab_GeneralMessages	 	= "综合信息"
@@ -151,12 +155,13 @@ L.BarIconRight 				= "右侧图标"
 L.ExpandUpwards				= "计时条向上伸展" --感谢飘去的梦， 木沐的小胖狼@NGA
 L.FillUpBars				= "填充计时条"
 L.ClickThrough				= "禁用鼠标点击事件（允许你点击计时条后面的目标）"
+L.Bar_Decimal				= "%d秒以内显示小数点"
 L.Bar_DBMOnly				= "以下设置只对 \"DBM\" 计时条有效."
 L.Bar_EnlargeTime			= "在%d后计时条变大"
 L.Bar_EnlargePercent		= "在%0.1f%%后计时条变大"
 L.BarSpark					= "计时条闪光"
 L.BarFlash					= "当计时条快走完时闪动"
-L.BarSort					= "Sort by remaining time"
+L.BarSort					= "按剩余时间排序"
 
 -- Tab: Spec Warn Frame
 L.Panel_SpecWarnFrame		= "特殊警报"
@@ -174,6 +179,10 @@ L.SpecWarn_FlashAlpha		= "泛光透明度: %0.1f"
 L.SpecWarn_DemoButton		= "测试警报"
 L.SpecWarn_MoveMe			= "设置位置"
 L.SpecWarn_ResetMe			= "重置"
+L.SpecialWarnSound			= "针对你发出特殊警报时播放的声音"
+L.SpecialWarnSound2			= "针对所有人发出特殊警报时播放的声音(默认:当心)"
+L.SpecialWarnSound3			= "针对非常重要事件(灭团点)的特殊警报播放的声音(默认:毁灭)"
+L.SpecialWarnSound4			= "特殊警报: 快跑啊 小女孩"
 
 -- Tab: Spoken Alerts Frame
 L.Panel_SpokenAlerts		= "语音警告"
@@ -186,6 +195,9 @@ L.Area_CountdownOptions		= "倒计时选项"
 L.ShowCountdownText			= "为第一倒计时显示文本"
 L.Area_VoicePackOptions		= "语音包选项(第三方)"
 L.SpecWarn_NoSoundsWVoice	= "当技能存在语音包语音时，屏蔽播放特殊警报声（当心，毁灭）"
+L.SWFNever					= "从不"
+L.SWFDefaultOnly			= "当特殊警报使用默认声音时(允许自定义语音包播放)"
+L.SWFAll					= "当特殊警报使用任何默认声音时"
 L.SpecWarn_AlwaysVoice		= "总是播放所有语音警告(覆盖Boss特定的选项,建议指挥使用)"
 --TODO, maybe add URLS right to GUI panel on where to acquire 3rd party voice packs?
 
@@ -198,16 +210,19 @@ L.HP_ShowDemo				= "显示框体"
 L.BarWidth					= "计量条宽度: %d"
 
 -- Tab: Global Filter
-L.Panel_SpamFilter			= "全局及信息过滤"
-L.Area_SpamFilter_Outgoing	= "全局过滤设置"
+L.Panel_SpamFilter			= "DBM全局及信息过滤"
+L.Area_SpamFilter_Outgoing	= "DBM全局过滤设置"
 L.SpamBlockNoShowAnnounce	= "不显示警报或播放警报音效"
-L.DontShowFarWarnings		= "不显示过远事件的通告和计时器"
-L.SpamBlockNoRunAway		= "不要播放'快跑啊，小姑娘'"
 L.SpamBlockNoSendWhisper	= "不发送悄悄话提示给其他玩家"
 L.SpamBlockNoSetIcon		= "不设定标记在目标上"
 L.SpamBlockNoRangeFrame		= "不显示距离监视器"
 L.SpamBlockNoInfoFrame		= "不显示信息监视器"
+L.SpamBlockNoHudMap			= "不显示HudMap"
+
 L.SpamBlockNoHealthFrame	= "不显示生命值监视器"
+L.SpamBlockNoCountdowns		= "不要播放倒数"
+L.SpamBlockNoIconRestore	= "当战斗结束后不保存团队标记状态(大饼 星星 月亮 方块这些)"
+L.SpamBlockNoRangeRestore	= "当boss暂时消失时不恢复距离指示器"
 
 -- Tab: Spam Filter
 L.Area_SpamFilter			= "信息过滤设置"
@@ -217,8 +232,8 @@ L.SpamBlockBossWhispers		= "战斗中过滤DBM密语警报"
 
 L.Area_SpecFilter			= "专精过滤选项"
 L.FilterTankSpec			= "当非坦克专精时，过滤掉给予坦克的专用信息"
---L.FilterHealerSpec		= "Filter warnings designated for Healer role when not Healer spec"--Not in use
---L.FilterDamagerSpec		= "Filter warnings designated for Damager role when not Damager spec"--Not in use
+L.FilterInterrupts			= "当目标没有被选中或设置为焦点时，过滤掉打断提示 (注意: 这对那些不打断就灭团的技能无效)"
+L.FilterDispels				= "当驱散技能在冷却时, 过滤掉驱散提示"
 
 L.Area_PullTimer			= "开怪倒计时过滤设置"
 L.DontShowPTNoID			= "不显示不同区域发送的倒计时"
@@ -228,13 +243,14 @@ L.DontPlayPTCountdown		= "不播放开怪倒计时语音"
 L.DontShowPTCountdownText	= "不显示开怪倒计时动画"
 L.PT_Threshold				= "不显示高于%d秒的倒计时动画"
 
-L.Panel_HideBlizzard		= "隐藏游戏自带提示"
+L.Panel_HideBlizzard		= "隐藏游戏自带内容"
 L.Area_HideBlizzard			= "隐藏游戏自带提示选项"
 L.HideBossEmoteFrame		= "Boss战斗中隐藏Boss表情框体"
 L.HideWatchFrame			= "在没有成就追踪的情况下，Boss战斗中隐藏任务追踪框体"
 L.HideGarrisonUpdates		= "Boss战斗中隐藏要塞队列完成提示"
 L.HideGuildChallengeUpdates	= "Boss战斗中隐藏工会挑战成功信息"
 L.HideTooltips				= "Boss战斗中隐藏鼠标提示窗体 （tooltips）"
+L.DisableSFX				= "Boss战斗中关闭音效"
 L.HideApplicantAlerts		= "屏蔽预创建队伍邀请信息"
 L.HideApplicantAlertsFull	= "当团队已满时"
 L.HideApplicantAlertsNotL	= "当我不是团长时 （团长别选）"
@@ -279,6 +295,8 @@ L.EnterProfileName			= "输入配置文件名称"
 L.CreateProfile				= "创建DBM核心配置文件"
 L.Area_ApplyProfile			= "选择一个已有的DBM核心配置文件并应用它"
 L.SelectProfileToApply		= "选择一个配置文件并应用"
+L.Area_CopyProfile			= "复制一个配置文件"
+L.SelectProfileToCopy		= "选择一个配置文件并复制"
 L.Area_DeleteProfile		= "删除一个已有的DBM核心配置文件"
 L.SelectProfileToDelete		= "选择一个配置文件并删除"
 L.Area_DualProfile			= "Boss模块配置文件选项"

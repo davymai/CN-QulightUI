@@ -112,19 +112,19 @@ do
 	end
 
 	local function setRange(self, range)
-		rangeCheck:Hide()
-		rangeCheck:Show(range, mainFrame.filter, true)
+		rangeCheck:Hide(true)
+		rangeCheck:Show(range, mainFrame.filter, true, mainFrame.redCircleNumPlayers or 1)
 	end
 	
 	local function setThreshold(self, threshold)
-		rangeCheck:Hide()
-		rangeCheck:Show(range, mainFrame.filter, true, threshold)
+		rangeCheck:Hide(true)
+		rangeCheck:Show(mainFrame.range, mainFrame.filter, true, threshold)
 	end
 
 	local function setFrames(self, option)
 		DBM.Options.RangeFrameFrames = option
-		rangeCheck:Hide()
-		rangeCheck:Show(mainFrame.range, mainFrame.filter, true)
+		rangeCheck:Hide(true)
+		rangeCheck:Show(mainFrame.range, mainFrame.filter, true, mainFrame.redCircleNumPlayers or 1)
 	end
 
 	local function toggleLocked()
@@ -177,7 +177,7 @@ do
 			info = UIDropDownMenu_CreateInfo()
 			info.text = HIDE
 			info.notCheckable = true
-			info.func = rangeCheck.Hide
+			info.func = function() rangeCheck:Hide(true) end
 			info.arg1 = rangeCheck
 			UIDropDownMenu_AddButton(info, 1)
 
@@ -381,11 +381,19 @@ end
 ------------------------
 --  Create the frame  --
 ------------------------
+local frameBackdrop = {
+	bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+	tile = true,
+	tileSize = 16,
+	insets = { left = 2, right = 14, top = 2, bottom = 2 },
+}
+
 function createTextFrame()
 	local elapsed = 0
 	local textFrame = CreateFrame("GameTooltip", "DBMRangeCheck", UIParent, "GameTooltipTemplate")
 	dropdownFrame = CreateFrame("Frame", "DBMRangeCheckDropdown", textFrame, "UIDropDownMenuTemplate")
 	textFrame:SetFrameStrata("DIALOG")
+	textFrame:SetBackdrop(frameBackdrop)
 	textFrame:SetPoint(DBM.Options.RangeFramePoint, UIParent, DBM.Options.RangeFramePoint, DBM.Options.RangeFrameX, DBM.Options.RangeFrameY)
 	textFrame:SetHeight(64)
 	textFrame:SetWidth(64)
@@ -589,7 +597,7 @@ do
 				local range = (cx * cx + cy * cy) ^ 0.5
 				--local range = UnitDistanceSquared(uId) ^ 0.5
 				local inRange = false
-				if range < (activeRange) then
+				if range < (activeRange+0.5) then
 					closePlayer = closePlayer + 1
 					inRange = true
 					if not closestRange then
@@ -698,6 +706,7 @@ end
 ---------------
 --  Methods  --
 ---------------
+local restoreRange, restoreFilter, restoreThreshold, restoreReverse = nil, nil, nil, nil
 function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse)
 	if (DBM:GetNumRealGroupMembers() < 2 or DBM.Options.DontShowRangeFrame) and not forceshow then return end
 	if type(range) == "function" then -- the first argument is optional
@@ -728,22 +737,31 @@ function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse)
 	end
 	updater:SetScript("OnLoop", updateRangeFrame)
 	updater:Play()
+	if forceshow and not DBM.Options.DontRestoreRange then--Force means user activaetd range frame, store user value for restore function
+		restoreRange, restoreFilter, restoreThreshold, restoreReverse = mainFrame.range, mainFrame.filter, mainFrame.redCircleNumPlayers, mainFrame.reverse
+	end
 end
 
-function rangeCheck:Hide()
-	updater:Stop()
-	activeRange = 0
-	if mainFrame.eventRegistered then
-		mainFrame.eventRegistered = nil
-		mainFrame:UnregisterAllEvents()
-	end
-	if textFrame then
-		textFrame.isShown = nil
-		textFrame:Hide()
-	end
-	if radarFrame then
-		radarFrame.isShown = nil
-		radarFrame:Hide() 
+function rangeCheck:Hide(force)
+	if restoreRange and not force then--Restore range frame to way it was when boss mod is done with it
+		rangeCheck:Show(restoreRange, restoreFilter, true, restoreThreshold, restoreReverse)
+	else
+		restoreRange, restoreFilter, restoreThreshold, restoreReverse = nil, nil, nil, nil
+		DBM.Options.RestoreRange = nil--Set nil here because it means force was passed.
+		updater:Stop()
+		activeRange = 0
+		if mainFrame.eventRegistered then
+			mainFrame.eventRegistered = nil
+			mainFrame:UnregisterAllEvents()
+		end
+		if textFrame then
+			textFrame.isShown = nil
+			textFrame:Hide()
+		end
+		if radarFrame then
+			radarFrame.isShown = nil
+			radarFrame:Hide() 
+		end
 	end
 end
 
